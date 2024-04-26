@@ -1,33 +1,30 @@
-var url1 = fetch('url1');
-var url2 = fetch('url2');
-var url3 = fetch('url3');
-var promiseArr = [url1, url2, url3]
-Promise.allSettled(promiseArr).then((resp) => {
-  let out = [{
-    url1: resp[0],
-    url2: resp[1],
-    url3: resp[2]
-  }];
-  return out;
-});
-Promise.prototype.allSettled = function (promiseArr) {
-  let callback = null;
-  let response = new Array(promiseArr.length).fill(0);
-  function then(_callBack) {
-    callback = _callBack;
-
-  }
-  arr.forEach((element, index) => {
-    element.then((resp) => {
-      promiseResolved(index, resp);
-    });
-  });
-  function promiseResolved(index, resp) {
-    response[index] = resp;
-    let emptyResp = resp.findIndex(m => m == 0);
-    if (emptyResp == -1) {
-      callback(response);
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function (s) {
+  var out = "";
+  out = out.split(" ").join();
+  for (let index = 0; index < s.length; index++) {
+    var element = s[index].toLowerCase();
+    if (
+      (element != " " && !isNaN(element)) ||
+      (element.charCodeAt(0) > 96 && element.charCodeAt(0) < 123)
+    ) {
+      out = out + element;
     }
   }
-  return { then };
-}
+
+  s = out;
+  let i = 0;
+  let j = s.length - 1;
+  while (i < j) {
+    if (s[i] !== s[j]) {
+      return false;
+    }
+    i++;
+    j--;
+  }
+  return true;
+};
+console.log(isPalindrome("A man, a plan, a canal: Panama"));
